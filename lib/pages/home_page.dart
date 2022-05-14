@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
         title: const Text("Something"),
       ),
       drawer: Drawer(),
-      body: const Center(child: Text("Hello there"))
+      body:   const Center(child: Text("Hello there"))
       );
   }
 }

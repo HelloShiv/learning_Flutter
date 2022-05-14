@@ -1,8 +1,16 @@
 import 'package:app_learning/util/routes.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String name = "";
+  bool changeButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +25,9 @@ class LoginPage extends StatelessWidget {
           const SizedBox(
             height: 20.0,
           ),
-          const Text(
-            "Welcome",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          Text(
+            "Welcome $name",
+            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 20.0,
@@ -32,6 +40,10 @@ class LoginPage extends StatelessWidget {
                 TextFormField(
                   decoration: const InputDecoration(
                       hintText: "Enter User Name", labelText: "User Name"),
+                  onChanged: (value) {
+                    name = value;
+                    setState(() {});
+                  },
                 ),
                 TextFormField(
                   obscureText: true,
@@ -41,15 +53,49 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, MyRoutes.homeRoute);
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.pushNamed(context, MyRoutes.homeRoute);
+                //   },
+                //   child: const Text("Login"),
+                //   style: TextButton.styleFrom(
+                //     minimumSize: Size(100, 40),
+                //   ),
+                // ),
+
+                //// Custom login button for login
+                InkWell(
+                  splashColor: Colors.blueAccent,
+                  onTap: () async {
+                    // Navigator.pushNamed(context, MyRoutes.homeRoute);
+                    setState(() {
+                      changeButton = true;
+                    });
+                      await Future.delayed(Duration(seconds: 1));
                   },
-                  child: const Text("Login"),
-                  style: TextButton.styleFrom(
-                    minimumSize: Size(100, 40),
+                  child: AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                    alignment: Alignment.center,
+                    height: 40,
+                    width: changeButton?40:100,
+                    child: Center(
+                        child: changeButton
+                            ? const Icon(
+                                Icons.done,
+                                color: Colors.white,
+                              )
+                            : const Text(
+                                "Login",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              )),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(changeButton ? 100 : 8),
+                      color: Colors.deepPurple,
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           ),
