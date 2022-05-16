@@ -5,9 +5,11 @@ import 'package:app_learning/pages/widgets/Item_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
+    final dummyList = List.generate(5, (index) => CatalogModel.items[0]);
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -18,9 +20,9 @@ class HomePage extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
-        itemCount: CatalogModel.items.length,
+        itemCount: dummyList.length,
         itemBuilder: (context, index) {
-          return ItemWidget(item: CatalogModel.items[index]
+          return ItemWidget(item: dummyList[index]
           );
         },
         ),
